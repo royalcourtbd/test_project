@@ -112,3 +112,31 @@ extension ColorExtensions on Color {
     return withValues(alpha: percentage / 100.0);
   }
 }
+
+/// Extension on nullable int for timestamp to DateTime conversion.
+///
+/// Usage examples:
+/// ```dart
+/// int? timestamp = 1640995200000;
+/// DateTime date = timestamp.fromTimestampToDateTime;
+///
+/// // Returns current time if null
+/// int? nullValue = null;
+/// DateTime now = nullValue.fromTimestampToDateTime;
+/// ```
+
+extension IntDateExtension on int? {
+  DateTime get fromTimestampToDateTime {
+    if (this == null) return DateTime.now();
+    final DateTime date = DateTime.fromMillisecondsSinceEpoch(this!);
+    return date;
+  }
+}
+
+/// Extension on DateTime for easy timestamp conversion.
+///
+/// Usage: `DateTime.now().toTimestamp` returns milliseconds since epoch.
+extension DateTimeExtension on DateTime {
+  /// Converts DateTime to millisecond timestamp.
+  int get toTimestamp => millisecondsSinceEpoch;
+}
