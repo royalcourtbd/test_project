@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:initial_project/core/di/service_locator.dart';
 
 import 'package:initial_project/features/app_management/domain/usecase/determine_first_run_use_case.dart';
-import 'package:initial_project/presentation/initial_app.dart';
+import 'package:initial_project/initial_app.dart';
 
 Future<void> main() async {
   runZonedGuarded<Future<void>>(() async {

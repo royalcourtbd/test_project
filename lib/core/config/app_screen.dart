@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:initial_project/core/utility/logger_utility.dart';
-import 'package:initial_project/presentation/initial_app.dart';
+import 'package:initial_project/initial_app.dart';
 
 /// Utility class for retrieving the screen dimensions of the device.
 ///

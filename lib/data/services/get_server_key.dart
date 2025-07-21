@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:googleapis_auth/auth_io.dart';
-import 'package:initial_project/core/service/connectivity_service.dart';
+import 'package:initial_project/core/services/connectivity_service.dart';
 import 'package:initial_project/core/utility/logger_utility.dart';
 import 'package:initial_project/core/utility/trial_utility.dart';
 import 'package:initial_project/core/utility/utility_export.dart';

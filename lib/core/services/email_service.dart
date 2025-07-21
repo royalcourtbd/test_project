@@ -1,6 +1,6 @@
-import 'package:initial_project/core/service/app_info_service.dart';
-import 'package:initial_project/core/service/device_service.dart';
-import 'package:initial_project/core/service/launcher_service.dart';
+import 'package:initial_project/core/services/app_info_service.dart';
+import 'package:initial_project/core/services/device_service.dart';
+import 'package:initial_project/core/services/launcher_service.dart';
 import 'package:initial_project/core/static/constants.dart';
 import 'package:initial_project/core/utility/utility_export.dart';
 

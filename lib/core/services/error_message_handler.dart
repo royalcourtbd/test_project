@@ -2,7 +2,6 @@ abstract class ErrorMessageHandler {
   String generateErrorMessage(Object error);
 }
 
-
 class ErrorMessageHandlerImpl implements ErrorMessageHandler {
   @override
   String generateErrorMessage(Object error) {
