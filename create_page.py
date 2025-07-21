@@ -158,7 +158,7 @@ class {class_prefix}Di {{
     # Generate presenter content
     presenter_content = f'''import 'dart:async';
 import 'package:{project_name}/core/base/base_presenter.dart';
-import 'package:{project_name}/core/utility/utility.dart';
+import 'package:{project_name}/core/utility/navigation_helpers.dart';
 import 'package:{project_name}/features/{page_name}/presentation/presenter/{page_name}_ui_state.dart';
 
 class {class_prefix}Presenter extends BasePresenter<{class_prefix}UiState> {{
