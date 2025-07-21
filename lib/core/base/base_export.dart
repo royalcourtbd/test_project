@@ -7,4 +7,4 @@ export 'package:fpdart/src/either.dart';
 export 'package:flutter/material.dart';
 export 'package:initial_project/core/utility/logger_utility.dart';
 export 'package:fpdart/src/extension/option_extension.dart';
-export 'package:initial_project/domain/service/error_message_handler.dart';
+export 'package:initial_project/core/service/error_message_handler.dart';
