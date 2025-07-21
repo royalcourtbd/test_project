@@ -3,10 +3,8 @@ import 'dart:developer';
 import 'package:get_it/get_it.dart';
 import 'package:initial_project/core/di/service_locator.dart';
 import 'package:initial_project/core/di/setup/setup_module.dart';
-import 'package:initial_project/domain/usecases/check_notification_permission_usecase.dart';
 import 'package:initial_project/domain/usecases/get_device_info_usecase.dart';
 import 'package:initial_project/domain/usecases/register_device_usecase.dart';
-import 'package:initial_project/domain/usecases/request_notification_permission_usecase.dart';
 
 class UsecaseSetup implements SetupModule {
   final GetIt _serviceLocator;
@@ -17,12 +15,6 @@ class UsecaseSetup implements SetupModule {
     log('init usecase setup');
     _serviceLocator
       ..registerLazySingleton(() => GetDeviceInfoUsecase(locate(), locate()))
-      ..registerLazySingleton(() => RegisterDeviceUsecase(locate(), locate()))
-      ..registerLazySingleton(
-        () => CheckNotificationPermissionUsecase(locate(), locate()),
-      )
-      ..registerLazySingleton(
-        () => RequestNotificationPermissionUsecase(locate(), locate()),
-      );
+      ..registerLazySingleton(() => RegisterDeviceUsecase(locate(), locate()));
   }
 }
