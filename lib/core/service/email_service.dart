@@ -1,7 +1,8 @@
+import 'package:initial_project/core/service/app_info_service.dart';
 import 'package:initial_project/core/service/device_service.dart';
 import 'package:initial_project/core/service/launcher_service.dart';
 import 'package:initial_project/core/static/constants.dart';
-import 'package:initial_project/core/utility/utility.dart';
+import 'package:initial_project/core/utility/utility_export.dart';
 
 Future<String> getEmailBody() async {
   final String reportInfo = await getDeviceInfo();
