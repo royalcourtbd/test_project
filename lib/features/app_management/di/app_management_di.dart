@@ -18,7 +18,7 @@ class AppManagementDi {
 
     //  Repository
     serviceLocator.registerLazySingleton<AppManagementRepository>(
-      () => AppManagementRepositoryImpl(locate(), locate()),
+      () => AppManagementRepositoryImpl(locate()),
     );
 
     // Use Cases

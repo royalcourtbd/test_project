@@ -17,7 +17,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:initial_project/core/base/base_presenter.dart';
 import 'package:initial_project/core/di/setup/datasource_setup.dart';
-import 'package:initial_project/core/di/setup/presenter_setup.dart';
 import 'package:initial_project/core/di/setup/service_setup.dart';
 import 'package:initial_project/features/app_management/di/app_management_di.dart';
 import 'package:initial_project/features/home/di/home_di.dart';
@@ -63,9 +62,6 @@ class ServiceLocator {
     if (startOnlyService) return;
     final DatasourceSetup setUpDataSources = DatasourceSetup(_serviceLocator);
     await setUpDataSources.setup();
-
-    final PresenterSetup setUpPresenters = PresenterSetup(_serviceLocator);
-    await setUpPresenters.setup();
 
     //================================
 
