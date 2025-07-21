@@ -1,8 +1,6 @@
-import 'package:fpdart/fpdart.dart';
-import 'package:initial_project/core/base/base_use_case.dart';
+import 'package:initial_project/core/base/base_export.dart';
 import 'package:initial_project/domain/entities/device_info_entity.dart';
 import 'package:initial_project/domain/repositories/device_info_repository.dart';
-import 'package:initial_project/domain/service/error_message_handler.dart';
 
 class GetDeviceInfoUsecase extends BaseUseCase<List<DeviceInfoEntity>> {
   final DeviceInfoRepository _deviceInfoRepository;
@@ -16,3 +14,4 @@ class GetDeviceInfoUsecase extends BaseUseCase<List<DeviceInfoEntity>> {
     return _deviceInfoRepository.getAllRegisteredDevices();
   }
 }
+
