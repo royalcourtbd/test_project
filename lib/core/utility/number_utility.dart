@@ -1,5 +1,5 @@
 // Utility extension for converting numbers to Duration
-extension NumberUtilityExt on num {
+extension DurationExtensions on num {
   Duration get inMilliseconds => Duration(milliseconds: round());
 
   Duration get inSeconds => Duration(seconds: round());
