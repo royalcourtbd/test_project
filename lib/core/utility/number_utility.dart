@@ -2,7 +2,7 @@
 extension NumberUtilityExt on num {
   Duration get inMilliseconds => Duration(milliseconds: round());
 
-  Duration get inSeconds => Duration(milliseconds: (this * 1000).round());
+  Duration get inSeconds => Duration(seconds: round());
 
   Duration get inMinutes =>
       Duration(seconds: (this * Duration.secondsPerMinute).round());
@@ -12,6 +12,7 @@ extension NumberUtilityExt on num {
 
   Duration get inDays => Duration(hours: (this * Duration.hoursPerDay).round());
 }
+
 
 // Number validation functions
 bool isEnglishNumber({required String text}) {
