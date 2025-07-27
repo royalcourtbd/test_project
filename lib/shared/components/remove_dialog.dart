@@ -3,7 +3,7 @@ import 'package:initial_project/core/config/app_screen.dart';
 import 'package:initial_project/core/external_libs/flutter_animated_dialog/src/animated_dialog.dart';
 import 'package:initial_project/core/static/ui_const.dart';
 import 'package:initial_project/core/utility/extensions.dart';
-import 'package:initial_project/presentation/common/custom_button.dart';
+import 'package:initial_project/shared/components/custom_button.dart';
 
 class RemoveDialog extends StatelessWidget {
   const RemoveDialog({super.key, required this.title, required this.onRemove});

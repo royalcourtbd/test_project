@@ -4,7 +4,7 @@ import 'package:initial_project/core/external_libs/flutter_animated_dialog/src/a
 import 'package:initial_project/core/static/ui_const.dart';
 import 'package:initial_project/core/utility/extensions.dart';
 
-import 'package:initial_project/presentation/common/custom_button.dart';
+import 'package:initial_project/shared/components/custom_button.dart';
 
 class NotificationDeniedDialog extends StatelessWidget {
   const NotificationDeniedDialog({super.key, required this.onSubmit});
