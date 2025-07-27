@@ -32,13 +32,19 @@ def show_loading(description, process):
         print(f"\b{MAGENTA}{braille_spinner_list[spinner_index]}{NC}", end='', flush=True)
         spinner_index = (spinner_index + 1) % len(braille_spinner_list)
         time.sleep(0.025)
+    stdout, stderr = process.communicate()
     # Display success or failure icon based on the process exit status
     if process.returncode == 0:
         print(f"\b{CHECKMARK} ", flush=True)
+        # Nicher ei stdout statement ta comment out korle r command er out put dekha jabe na.
+        # if stdout:
+        #     print(f"\n{GREEN}Output:\n{stdout.decode()}{NC}")
         return True
     else:
         print(f"\b{CROSS} ", flush=True)
-        stdout, stderr = process.communicate()
+        # Nicher ei stdout statement ta comment out korle r command er out put dekha jabe na.
+        if stdout:
+            print(f"\n{GREEN}Output:\n{stdout.decode()}{NC}")
         if stderr:
             print(f"\n{RED}Error Output:\n{stderr.decode()}{NC}")
         return False
