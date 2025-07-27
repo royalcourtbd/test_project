@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:initial_project/core/di/service_locator.dart';
-import 'package:initial_project/core/external_libs/presentable_widget_builder.dart';
+import 'package:initial_project/core/widgets/presentable_widget_builder.dart';
 import 'package:initial_project/core/utility/navigation_helpers.dart';
 
 import 'package:initial_project/features/home/presentation/ui/home_page.dart';

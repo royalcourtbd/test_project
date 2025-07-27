@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:initial_project/core/external_libs/throttle_service.dart';
+import 'package:initial_project/core/services/throttle_service.dart';
 import 'package:initial_project/core/static/constants.dart';
 import 'package:initial_project/core/utility/logger_utility.dart';
 import 'package:initial_project/core/utility/navigation_helpers.dart';

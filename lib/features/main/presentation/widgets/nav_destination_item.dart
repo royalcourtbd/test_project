@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:initial_project/core/external_libs/svg_image.dart';
+import 'package:initial_project/shared/components/svg_image.dart';
 
 class NavDestinationItem extends StatelessWidget {
   const NavDestinationItem({

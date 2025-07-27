@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:initial_project/core/config/app_screen.dart';
-import 'package:initial_project/core/external_libs/svg_image.dart';
+import 'package:initial_project/shared/components/svg_image.dart';
 import 'package:initial_project/core/static/ui_const.dart';
 import 'package:initial_project/core/utility/extensions.dart';
 
