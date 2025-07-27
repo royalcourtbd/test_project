@@ -6,7 +6,7 @@ import 'package:initial_project/core/di/setup/setup_module.dart';
 import 'package:initial_project/core/utility/trial_utility.dart';
 import 'package:initial_project/data/services/backend_as_a_service.dart';
 import 'package:initial_project/data/services/local_cache_service.dart';
-import 'package:initial_project/domain/service/time_service.dart';
+import 'package:initial_project/core/services/time_service.dart';
 import 'package:initial_project/core/base/base_export.dart';
 
 class ServiceSetup implements SetupModule {

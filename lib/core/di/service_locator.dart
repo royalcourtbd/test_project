@@ -20,6 +20,7 @@ import 'package:initial_project/core/di/setup/service_setup.dart';
 import 'package:initial_project/features/app_management/di/app_management_di.dart';
 import 'package:initial_project/features/home/di/home_di.dart';
 import 'package:initial_project/features/main/di/main_di.dart';
+import 'package:initial_project/features/onboarding/di/onboarding_di.dart';
 
 final GetIt _serviceLocator = GetIt.instance;
 
@@ -66,9 +67,11 @@ class ServiceLocator {
     await HomeDi.setup(_serviceLocator);
 
     //Feature DI setup
+    await OnboardingDi.setup(_serviceLocator);
     await AppManagementDi.setup(_serviceLocator);
 
     //Feature DI setup
+    await OnboardingDi.setup(_serviceLocator);
     await MainDi.setup(_serviceLocator);
   }
 }

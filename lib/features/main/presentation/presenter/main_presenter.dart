@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:initial_project/core/base/base_presenter.dart';
 import 'package:initial_project/core/utility/navigation_helpers.dart';
-import 'package:initial_project/domain/service/time_service.dart';
+import 'package:initial_project/core/services/time_service.dart';
 import 'package:initial_project/features/main/presentation/presenter/main_ui_state.dart';
 
 class MainPresenter extends BasePresenter<MainUiState> {

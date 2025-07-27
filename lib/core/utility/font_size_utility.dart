@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:initial_project/core/config/app_screen.dart';
 import 'package:initial_project/core/static/constants.dart';
-import 'package:initial_project/domain/entities/language_type_enum.dart';
+import 'package:initial_project/shared/model/language_type_enum.dart';
 
 /// Enumeration of all text styles used in the app
 enum TextStyleType {
