@@ -33,7 +33,7 @@ elif [ "$1" == "cleanup" ]; then
   PID=$!
   show_loading "Fixing code                                           " $PID
 
-  (dart format --fix . >/dev/null 2>&1) &
+  (dart format --fix . 2>&1) &
   PID=$!
   show_loading "Following dart guidelines                             " $PID
 

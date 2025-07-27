@@ -1,4 +1,4 @@
-import 'package:initial_project/data/services/local_cache_service.dart';
+import 'package:initial_project/core/services/local_cache_service.dart';
 
 class AppManagementLocalDataSource {
   AppManagementLocalDataSource(this._localCacheService);

@@ -1,3 +1,1 @@
-abstract class OnboardingRepository {
-  
-}
+abstract class OnboardingRepository {}

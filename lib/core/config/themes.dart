@@ -41,15 +41,13 @@ class AappTheme {
       height: 80,
       labelTextStyle: WidgetStateTextStyle.resolveWith(
         (states) => TextStyle(
-          fontWeight:
-              states.contains(WidgetState.selected)
-                  ? FontWeight.w600
-                  : FontWeight.normal,
+          fontWeight: states.contains(WidgetState.selected)
+              ? FontWeight.w600
+              : FontWeight.normal,
           fontSize: 12,
-          color:
-              states.contains(WidgetState.selected)
-                  ? AppColor.primaryColor900
-                  : AppColor.subTitleColor,
+          color: states.contains(WidgetState.selected)
+              ? AppColor.primaryColor900
+              : AppColor.subTitleColor,
         ),
       ),
     ),

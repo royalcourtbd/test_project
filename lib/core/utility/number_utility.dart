@@ -13,7 +13,6 @@ extension DurationExtensions on num {
   Duration get inDays => Duration(hours: (this * Duration.hoursPerDay).round());
 }
 
-
 // Number validation functions
 bool isEnglishNumber({required String text}) {
   try {

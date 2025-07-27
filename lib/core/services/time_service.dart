@@ -16,7 +16,6 @@ class TimeService {
   void _initializeTime() {
     _currentTime.add(DateTime.now());
     Timer.periodic(const Duration(seconds: 1), (timer) {
-      
       _currentTime.add(DateTime.now());
     });
   }

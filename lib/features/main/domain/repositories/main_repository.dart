@@ -1,3 +1,1 @@
-abstract class MainRepository {
-  
-}
+abstract class MainRepository {}

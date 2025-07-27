@@ -1,7 +1,10 @@
 import 'package:initial_project/core/base/base_ui_state.dart';
 
 class OnboardingUiState extends BaseUiState {
-  const OnboardingUiState({required super.isLoading, required super.userMessage});
+  const OnboardingUiState({
+    required super.isLoading,
+    required super.userMessage,
+  });
 
   factory OnboardingUiState.empty() {
     return OnboardingUiState(isLoading: false, userMessage: '');

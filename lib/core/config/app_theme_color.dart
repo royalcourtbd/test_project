@@ -321,12 +321,11 @@ class AppThemeColor extends ThemeExtension<AppThemeColor> {
     }
     return AppThemeColor(
       // Existing properties
-      scaffoldBachgroundColor:
-          Color.lerp(
-            scaffoldBachgroundColor,
-            other.scaffoldBachgroundColor,
-            t,
-          )!,
+      scaffoldBachgroundColor: Color.lerp(
+        scaffoldBachgroundColor,
+        other.scaffoldBachgroundColor,
+        t,
+      )!,
       primaryColor: Color.lerp(primaryColor, other.primaryColor, t)!,
       whiteColor: Color.lerp(whiteColor, other.whiteColor, t)!,
       backgroundColor: Color.lerp(backgroundColor, other.backgroundColor, t)!,
@@ -337,8 +336,11 @@ class AppThemeColor extends ThemeExtension<AppThemeColor> {
       titleColor: Color.lerp(titleColor, other.titleColor, t)!,
       subTitleColor: Color.lerp(subTitleColor, other.subTitleColor, t)!,
       bodyColor: Color.lerp(bodyColor, other.bodyColor, t)!,
-      placeHolderColor:
-          Color.lerp(placeHolderColor, other.placeHolderColor, t)!,
+      placeHolderColor: Color.lerp(
+        placeHolderColor,
+        other.placeHolderColor,
+        t,
+      )!,
       linkColor: Color.lerp(linkColor, other.linkColor, t)!,
       buttonColor: Color.lerp(buttonColor, other.buttonColor, t)!,
       buttonBgColor: Color.lerp(buttonBgColor, other.buttonBgColor, t)!,
@@ -398,10 +400,16 @@ class AppThemeColor extends ThemeExtension<AppThemeColor> {
       filledText: Color.lerp(filledText, other.filledText, t)!,
 
       // New Text Color properties
-      secondaryTitleColor:
-          Color.lerp(secondaryTitleColor, other.secondaryTitleColor, t)!,
-      secondarySubTitleColor:
-          Color.lerp(secondarySubTitleColor, other.secondarySubTitleColor, t)!,
+      secondaryTitleColor: Color.lerp(
+        secondaryTitleColor,
+        other.secondaryTitleColor,
+        t,
+      )!,
+      secondarySubTitleColor: Color.lerp(
+        secondarySubTitleColor,
+        other.secondarySubTitleColor,
+        t,
+      )!,
     );
   }
 

@@ -17,8 +17,6 @@ class HomeDi {
     // Use Cases
 
     // Presenters
-    serviceLocator.registerFactory(
-      () => loadPresenter(HomePresenter()),
-    );
+    serviceLocator.registerFactory(() => loadPresenter(HomePresenter()));
   }
 }

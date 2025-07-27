@@ -17,8 +17,6 @@ class OnboardingDi {
     // Use Cases
 
     // Presenters
-    serviceLocator.registerFactory(
-      () => loadPresenter(OnboardingPresenter()),
-    );
+    serviceLocator.registerFactory(() => loadPresenter(OnboardingPresenter()));
   }
 }

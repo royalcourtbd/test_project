@@ -182,7 +182,17 @@ def cleanup_project():
     """Clean up project"""
     print(f"{YELLOW}Cleaning up project...{NC}\n")
     run_flutter_command(["flutter", "clean"], "Cleaning project...                                   ")
+    # Get dependencies
     run_flutter_command(["flutter", "pub", "get"], "Getting dependencies...                              ")
+
+    #fix code Issues
+    run_flutter_command(["dart", "fix", "--apply"], "Fixing code issues...                                   ")
+
+    # Format code
+    run_flutter_command(["dart", "format", "."], "Following dart guidelines...                                   ")
+
+    #Upgrade with major version
+    run_flutter_command(["flutter", "pub", "upgrade", "--major-versions"], "Upgrading major versions...                            ")
     print(f"\n{GREEN}✓ Project cleaned successfully!{NC}")
 
 def release_run():

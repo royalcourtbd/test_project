@@ -45,209 +45,212 @@ Future<T?> showAnimatedDialog<T extends Object?>({
   isShowing = true;
   return showGeneralDialog(
     context: context,
-    pageBuilder: (
-      BuildContext buildContext,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-    ) {
-      final Widget pageChild = Builder(builder: builder);
-      return SafeArea(
-        top: false,
-        child: Builder(
-          builder: (BuildContext context) {
-            return Theme(data: theme, child: pageChild);
-          },
-        ),
-      );
-    },
+    pageBuilder:
+        (
+          BuildContext buildContext,
+          Animation<double> animation,
+          Animation<double> secondaryAnimation,
+        ) {
+          final Widget pageChild = Builder(builder: builder);
+          return SafeArea(
+            top: false,
+            child: Builder(
+              builder: (BuildContext context) {
+                return Theme(data: theme, child: pageChild);
+              },
+            ),
+          );
+        },
     barrierDismissible: barrierDismissible,
     barrierLabel: "Close dialog",
     barrierColor: barrierColor ?? Colors.black54,
     transitionDuration: duration ?? const Duration(milliseconds: 400),
-    transitionBuilder: (
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child,
-    ) {
-      switch (animationType) {
-        case DialogTransitionType.fade:
-          return FadeTransition(opacity: animation, child: child);
-        case DialogTransitionType.slideFromRight:
-          return SlideTransition(
-            transformHitTests: false,
-            position: Tween<Offset>(
-              begin: const Offset(1, 0),
-              end: Offset.zero,
-            ).chain(CurveTween(curve: curve)).animate(animation),
-            child: child,
-          );
-        case DialogTransitionType.slideFromLeft:
-          return SlideTransition(
-            transformHitTests: false,
-            position: Tween<Offset>(
-              begin: const Offset(-1, 0),
-              end: Offset.zero,
-            ).chain(CurveTween(curve: curve)).animate(animation),
-            child: child,
-          );
-        case DialogTransitionType.slideFromRightFade:
-          return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(1, 0),
-              end: Offset.zero,
-            ).chain(CurveTween(curve: curve)).animate(animation),
-            child: FadeTransition(opacity: animation, child: child),
-          );
-        case DialogTransitionType.slideFromLeftFade:
-          return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(-1, 0),
-              end: Offset.zero,
-            ).chain(CurveTween(curve: curve)).animate(animation),
-            child: FadeTransition(opacity: animation, child: child),
-          );
-        case DialogTransitionType.slideFromTop:
-          return SlideTransition(
-            transformHitTests: false,
-            position: Tween<Offset>(
-              begin: const Offset(0, -1),
-              end: Offset.zero,
-            ).chain(CurveTween(curve: curve)).animate(animation),
-            child: child,
-          );
-        case DialogTransitionType.slideFromTopFade:
-          return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(0, -1),
-              end: Offset.zero,
-            ).chain(CurveTween(curve: curve)).animate(animation),
-            child: FadeTransition(opacity: animation, child: child),
-          );
-        case DialogTransitionType.slideFromBottom:
-          return SlideTransition(
-            transformHitTests: false,
-            position: Tween<Offset>(
-              begin: const Offset(0, 1),
-              end: Offset.zero,
-            ).chain(CurveTween(curve: curve)).animate(animation),
-            child: child,
-          );
-        case DialogTransitionType.slideFromBottomFade:
-          return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(0, 1),
-              end: Offset.zero,
-            ).chain(CurveTween(curve: curve)).animate(animation),
-            child: FadeTransition(opacity: animation, child: child),
-          );
-        case DialogTransitionType.scale:
-          return ScaleTransition(
-            alignment: alignment,
-            scale: CurvedAnimation(
-              parent: animation,
-              curve: Interval(0, 0.50, curve: curve),
-            ),
-            child: child,
-          );
-        case DialogTransitionType.fadeScale:
-          return ScaleTransition(
-            alignment: alignment,
-            scale: CurvedAnimation(
-              parent: animation,
-              curve: Interval(0, 0.50, curve: curve),
-            ),
-            child: FadeTransition(
-              opacity: CurvedAnimation(parent: animation, curve: curve),
-              child: child,
-            ),
-          );
-        case DialogTransitionType.scaleRotate:
-          return ScaleTransition(
-            alignment: alignment,
-            scale: CurvedAnimation(
-              parent: animation,
-              curve: Interval(0, 0.50, curve: curve),
-            ),
-            child: CustomRotationTransition(
-              alignment: alignment,
-              turns: Tween<double>(begin: 1, end: 2).animate(
-                CurvedAnimation(
-                  parent: animation,
-                  curve: Interval(0, 1, curve: curve),
-                ),
-              ),
-              child: child,
-            ),
-          );
-        case DialogTransitionType.rotate:
-          return CustomRotationTransition(
-            alignment: alignment,
-            turns: Tween<double>(begin: 1, end: 2).animate(
-              CurvedAnimation(
-                parent: animation,
-                curve: Interval(0, 1, curve: curve),
-              ),
-            ),
-            child: child,
-          );
-        case DialogTransitionType.fadeRotate:
-          return CustomRotationTransition(
-            alignment: alignment,
-            turns: Tween<double>(begin: 1, end: 2).animate(
-              CurvedAnimation(
-                parent: animation,
-                curve: Interval(0, 1, curve: curve),
-              ),
-            ),
-            child: FadeTransition(
-              opacity: CurvedAnimation(parent: animation, curve: curve),
-              child: child,
-            ),
-          );
-        case DialogTransitionType.rotate3D:
-          return Rotation3DTransition(
-            alignment: alignment,
-            turns: Tween<double>(begin: math.pi, end: 2.0 * math.pi).animate(
-              CurvedAnimation(
-                parent: animation,
-                curve: Interval(0, 1, curve: curve),
-              ),
-            ),
-            child: FadeTransition(
-              opacity: Tween<double>(begin: 0, end: 1).animate(
-                CurvedAnimation(
-                  parent: animation,
-                  curve: const Interval(0.5, 1, curve: Curves.elasticOut),
-                ),
-              ),
-              child: child,
-            ),
-          );
-        case DialogTransitionType.size:
-          return Align(
-            alignment: alignment,
-            child: SizeTransition(
-              sizeFactor: CurvedAnimation(parent: animation, curve: curve),
-              axis: axis ?? Axis.vertical,
-              child: child,
-            ),
-          );
-        case DialogTransitionType.sizeFade:
-          return Align(
-            alignment: alignment,
-            child: SizeTransition(
-              sizeFactor: CurvedAnimation(parent: animation, curve: curve),
-              child: FadeTransition(
-                opacity: CurvedAnimation(parent: animation, curve: curve),
+    transitionBuilder:
+        (
+          BuildContext context,
+          Animation<double> animation,
+          Animation<double> secondaryAnimation,
+          Widget child,
+        ) {
+          switch (animationType) {
+            case DialogTransitionType.fade:
+              return FadeTransition(opacity: animation, child: child);
+            case DialogTransitionType.slideFromRight:
+              return SlideTransition(
+                transformHitTests: false,
+                position: Tween<Offset>(
+                  begin: const Offset(1, 0),
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: curve)).animate(animation),
                 child: child,
-              ),
-            ),
-          );
-        case DialogTransitionType.none:
-          return child;
-      }
-    },
+              );
+            case DialogTransitionType.slideFromLeft:
+              return SlideTransition(
+                transformHitTests: false,
+                position: Tween<Offset>(
+                  begin: const Offset(-1, 0),
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: curve)).animate(animation),
+                child: child,
+              );
+            case DialogTransitionType.slideFromRightFade:
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(1, 0),
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: curve)).animate(animation),
+                child: FadeTransition(opacity: animation, child: child),
+              );
+            case DialogTransitionType.slideFromLeftFade:
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(-1, 0),
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: curve)).animate(animation),
+                child: FadeTransition(opacity: animation, child: child),
+              );
+            case DialogTransitionType.slideFromTop:
+              return SlideTransition(
+                transformHitTests: false,
+                position: Tween<Offset>(
+                  begin: const Offset(0, -1),
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: curve)).animate(animation),
+                child: child,
+              );
+            case DialogTransitionType.slideFromTopFade:
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0, -1),
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: curve)).animate(animation),
+                child: FadeTransition(opacity: animation, child: child),
+              );
+            case DialogTransitionType.slideFromBottom:
+              return SlideTransition(
+                transformHitTests: false,
+                position: Tween<Offset>(
+                  begin: const Offset(0, 1),
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: curve)).animate(animation),
+                child: child,
+              );
+            case DialogTransitionType.slideFromBottomFade:
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0, 1),
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: curve)).animate(animation),
+                child: FadeTransition(opacity: animation, child: child),
+              );
+            case DialogTransitionType.scale:
+              return ScaleTransition(
+                alignment: alignment,
+                scale: CurvedAnimation(
+                  parent: animation,
+                  curve: Interval(0, 0.50, curve: curve),
+                ),
+                child: child,
+              );
+            case DialogTransitionType.fadeScale:
+              return ScaleTransition(
+                alignment: alignment,
+                scale: CurvedAnimation(
+                  parent: animation,
+                  curve: Interval(0, 0.50, curve: curve),
+                ),
+                child: FadeTransition(
+                  opacity: CurvedAnimation(parent: animation, curve: curve),
+                  child: child,
+                ),
+              );
+            case DialogTransitionType.scaleRotate:
+              return ScaleTransition(
+                alignment: alignment,
+                scale: CurvedAnimation(
+                  parent: animation,
+                  curve: Interval(0, 0.50, curve: curve),
+                ),
+                child: CustomRotationTransition(
+                  alignment: alignment,
+                  turns: Tween<double>(begin: 1, end: 2).animate(
+                    CurvedAnimation(
+                      parent: animation,
+                      curve: Interval(0, 1, curve: curve),
+                    ),
+                  ),
+                  child: child,
+                ),
+              );
+            case DialogTransitionType.rotate:
+              return CustomRotationTransition(
+                alignment: alignment,
+                turns: Tween<double>(begin: 1, end: 2).animate(
+                  CurvedAnimation(
+                    parent: animation,
+                    curve: Interval(0, 1, curve: curve),
+                  ),
+                ),
+                child: child,
+              );
+            case DialogTransitionType.fadeRotate:
+              return CustomRotationTransition(
+                alignment: alignment,
+                turns: Tween<double>(begin: 1, end: 2).animate(
+                  CurvedAnimation(
+                    parent: animation,
+                    curve: Interval(0, 1, curve: curve),
+                  ),
+                ),
+                child: FadeTransition(
+                  opacity: CurvedAnimation(parent: animation, curve: curve),
+                  child: child,
+                ),
+              );
+            case DialogTransitionType.rotate3D:
+              return Rotation3DTransition(
+                alignment: alignment,
+                turns: Tween<double>(begin: math.pi, end: 2.0 * math.pi)
+                    .animate(
+                      CurvedAnimation(
+                        parent: animation,
+                        curve: Interval(0, 1, curve: curve),
+                      ),
+                    ),
+                child: FadeTransition(
+                  opacity: Tween<double>(begin: 0, end: 1).animate(
+                    CurvedAnimation(
+                      parent: animation,
+                      curve: const Interval(0.5, 1, curve: Curves.elasticOut),
+                    ),
+                  ),
+                  child: child,
+                ),
+              );
+            case DialogTransitionType.size:
+              return Align(
+                alignment: alignment,
+                child: SizeTransition(
+                  sizeFactor: CurvedAnimation(parent: animation, curve: curve),
+                  axis: axis ?? Axis.vertical,
+                  child: child,
+                ),
+              );
+            case DialogTransitionType.sizeFade:
+              return Align(
+                alignment: alignment,
+                child: SizeTransition(
+                  sizeFactor: CurvedAnimation(parent: animation, curve: curve),
+                  child: FadeTransition(
+                    opacity: CurvedAnimation(parent: animation, curve: curve),
+                    child: child,
+                  ),
+                ),
+              );
+            case DialogTransitionType.none:
+              return child;
+          }
+        },
   );
 }
 
@@ -311,8 +314,8 @@ class CustomDialogWidget extends StatelessWidget {
           child: DefaultTextStyle(
             style:
                 (titleTextStyle ??
-                    dialogTheme.titleTextStyle ??
-                    theme.textTheme.titleLarge)!,
+                dialogTheme.titleTextStyle ??
+                theme.textTheme.titleLarge)!,
             child: Semantics(namesRoute: true, container: true, child: title),
           ),
         ),
@@ -347,8 +350,8 @@ class CustomDialogWidget extends StatelessWidget {
             child: DefaultTextStyle(
               style:
                   (contentTextStyle ??
-                      dialogTheme.contentTextStyle ??
-                      theme.textTheme.titleMedium)!,
+                  dialogTheme.contentTextStyle ??
+                  theme.textTheme.titleMedium)!,
               child: content!,
             ),
           ),
