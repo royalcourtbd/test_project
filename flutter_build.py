@@ -6,6 +6,7 @@ import signal
 import platform
 import subprocess
 import glob
+from functools import wraps
 
 # Colors for output
 RED = '\033[0;31m'
@@ -16,6 +17,28 @@ NC = '\033[0m'  # No Color
 MAGENTA = '\033[0;35m'  # Added for spinner
 CHECKMARK = '\033[32m✓\033[0m'  # Added for success checkmark
 CROSS = '\033[31m𐄂\033[0m'  # Added for failure cross
+
+def timer_decorator(func):
+    """
+    Decorator to automatically add timer functionality to any function
+    """
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        
+        # Execute the original function
+        result = func(*args, **kwargs)
+        
+        end_time = time.time()
+        total_seconds = end_time - start_time
+        minutes, seconds = divmod(total_seconds, 60)
+        
+        print(f"\n{BLUE}======================================================{NC}")
+        print(f"{BLUE}Total time taken: {int(minutes)} minute(s) and {seconds:.2f} seconds.{NC}")
+        print(f"{BLUE}======================================================{NC}")
+        
+        return result
+    return wrapper
 
 def show_loading(description, process):
     """
@@ -89,9 +112,9 @@ def open_directory(directory_path):
         print(f"Error opening directory: {e}")
         print(f"Please check: {directory_path}")
 
+@timer_decorator
 def build_apk():
     """Build APK (Full Process)"""
-    start_time = time.time()
     print(f"{YELLOW}Building APK (Full Process)...{NC}\n")
 
     # Clean the project
@@ -115,15 +138,7 @@ def build_apk():
     # Open the directory containing the APK
     open_directory("build/app/outputs/flutter-apk/")
 
-    end_time = time.time()
-
-    total_seconds = end_time - start_time
-    minutes, seconds = divmod(total_seconds, 60)
-
-    print(f"\n{BLUE}======================================================{NC}")
-    print(f"{BLUE}Total time taken: {int(minutes)} minute(s) and {seconds:.2f} seconds.{NC}")
-    print(f"{BLUE}======================================================{NC}")
-
+@timer_decorator
 def build_apk_split_per_abi():
     """Build APK with --split-per-abi"""
     print(f"{YELLOW}Building APK (split-per-abi)...{NC}\n")
@@ -143,6 +158,7 @@ def build_apk_split_per_abi():
     # Open the directory containing the APK
     open_directory("build/app/outputs/flutter-apk/")
 
+@timer_decorator
 def build_aab():
     """Build AAB"""
     print(f"{YELLOW}Building AAB...{NC}\n")
@@ -169,6 +185,7 @@ def run_build_runner():
     print(f"{YELLOW}Executing build_runner...{NC}  \n")
     run_flutter_command(["dart", "run", "build_runner", "build", "--delete-conflicting-outputs"], "Running build_runner     ")
 
+@timer_decorator
 def full_setup():
     """Perform full project setup"""
     print(f"{YELLOW}Performing full setup...{NC}  \n")
@@ -194,6 +211,7 @@ def repair_cache():
     run_flutter_command(["flutter", "pub", "cache", "repair"], "Repairing pub cache...                               ")
     print(f"\n {GREEN}✓  Pub cache repaired successfully.  {NC}")
 
+@timer_decorator
 def cleanup_project():
     """Clean up project"""
     print(f"{YELLOW}Cleaning up project...{NC}\n")
@@ -211,6 +229,7 @@ def cleanup_project():
     run_flutter_command(["flutter", "pub", "upgrade", "--major-versions"], "Upgrading major versions...                            ")
     print(f"\n{GREEN}✓ Project cleaned successfully!{NC}")
 
+@timer_decorator
 def release_run():
     """Build & Install Release APK"""
     print(f"{YELLOW}Building & Installing Release APK...{NC}\n")
@@ -244,6 +263,7 @@ def install_apk():
     print(f"{YELLOW}Installing {apk_files[0]}...{NC}")
     return run_flutter_command(["adb", "install", "-r", apk_files[0]], "Installing on device...                              ")
 
+@timer_decorator
 def update_pods():
     """Update iOS pods"""
     print(f"{YELLOW}Updating iOS pods...{NC}\n")
