@@ -26,15 +26,12 @@ def show_loading(description, process):
     """
     spinner_index = 0
     braille_spinner_list = '⡿⣟⣯⣷⣾⣽⣻⢿'
-    
     print(description, end='', flush=True)
-    
     # Continue spinning while the process is running
     while process.poll() is None:
         print(f"\b{MAGENTA}{braille_spinner_list[spinner_index]}{NC}", end='', flush=True)
         spinner_index = (spinner_index + 1) % len(braille_spinner_list)
         time.sleep(0.025)
-    
     # Display success or failure icon based on the process exit status
     if process.returncode == 0:
         print(f"\b{CHECKMARK} ", flush=True)
@@ -58,6 +55,12 @@ def display_apk_size():
         print(f"{RED}APK file not found in build/app/outputs/flutter-apk/{NC}")
 
 def run_flutter_command(cmd_list, description):
+    """
+    Runs a flutter/dart command with a loading spinner.
+    Parameters:
+        cmd_list: List of command arguments
+        description: Description to show with spinner
+    """
     process = subprocess.Popen(
         cmd_list,
         stdout=subprocess.PIPE,
@@ -83,7 +86,7 @@ def open_directory(directory_path):
 def build_apk():
     """Build APK (Full Process)"""
     print(f"{YELLOW}Building APK (Full Process)...{NC}\n")
-    
+
     # Clean the project
     run_flutter_command(["flutter", "clean"], "Cleaning project...                                   ")
     
@@ -93,36 +96,50 @@ def build_apk():
     # Generate build files
     run_flutter_command(["dart", "run", "build_runner", "build", "--delete-conflicting-outputs"], "Generating build files...                            ")
     
-    # Build APK
-    run_flutter_command(["flutter", "build", "apk", "--release", "--obfuscate", "--target-platform", "android-arm64", "--split-debug-info=./"], "Building APK...                                      ")
-    
+    # Build the APK
+    run_flutter_command([
+        "flutter", "build", "apk", "--release", "--obfuscate", "--target-platform", "android-arm64", "--split-debug-info=./"
+    ], "Building APK...                                      ")
     print(f"\n{GREEN}✓ APK built successfully!{NC}")
     
     # Display APK size
     display_apk_size()
     
-    # Open the APK directory
+    # Open the directory containing the APK
+    open_directory("build/app/outputs/flutter-apk/")
+
+def build_apk_split_per_abi():
+    """Build APK with --split-per-abi"""
+    print(f"{YELLOW}Building APK (split-per-abi)...{NC}\n")
+    # Clean the project
+    run_flutter_command(["flutter", "clean"], "Cleaning project...                                   ")
+    # Get dependencies
+    run_flutter_command(["flutter", "pub", "get"], "Getting dependencies...                              ")
+    # Generate build files
+    run_flutter_command(["dart", "run", "build_runner", "build", "--delete-conflicting-outputs"], "Generating build files...                            ")
+    # Build APK with split-per-abi
+    run_flutter_command([
+        "flutter", "build", "apk", "--release", "--split-per-abi", "--obfuscate", "--split-debug-info=./"
+    ], "Building APK (split-per-abi)...                      ")
+    print(f"\n{GREEN}✓ APK (split-per-abi) built successfully!{NC}")
+    # Display APK size
+    display_apk_size()
+    # Open the directory containing the APK
     open_directory("build/app/outputs/flutter-apk/")
 
 def build_aab():
     """Build AAB"""
     print(f"{YELLOW}Building AAB...{NC}\n")
-    
     # Clean the project
     run_flutter_command(["flutter", "clean"], "Cleaning project...                                   ")
-    
     # Get dependencies
     run_flutter_command(["flutter", "pub", "get"], "Getting dependencies...                              ")
-    
     # Generate build files
     run_flutter_command(["dart", "run", "build_runner", "build", "--delete-conflicting-outputs"], "Generating build files...                            ")
-    
     # Build AAB
     run_flutter_command(["flutter", "build", "appbundle", "--release", "--obfuscate", "--split-debug-info=./"], "Building AAB...                                      ")
-    
     print(f"\n{GREEN}✓ AAB built successfully!{NC}")
-    
-    # Open the AAB directory
+    # Open the directory containing the AAB
     open_directory("build/app/outputs/bundle/release/")
 
 def generate_lang():
@@ -139,28 +156,20 @@ def run_build_runner():
 def full_setup():
     """Perform full project setup"""
     print(f"{YELLOW}Performing full setup...{NC}  \n")
-    
     # Clean the project
     run_flutter_command(["flutter", "clean"], "Cleaning project...                                  ")
-    
     # Upgrade dependencies
     run_flutter_command(["flutter", "pub", "upgrade"], "Upgrading dependencies...                            ")
-    
     # Run build_runner
     run_flutter_command(["dart", "run", "build_runner", "build", "--delete-conflicting-outputs"], "Running build_runner...                              ")
-    
     # Generate localizations
     run_flutter_command(["flutter", "gen-l10n"], "Generating localizations...                          ")
-    
     # Refresh dependencies
     run_flutter_command(["flutter", "pub", "upgrade"], "Refreshing dependencies...                           ")
-    
     # Analyze code
     run_flutter_command(["flutter", "analyze"], "Analyzing code...                                    ")
-    
     # Format code
     run_flutter_command(["dart", "format", "."], "Formatting code...                                   ")
-    
     print(f"\n {GREEN}✓  Full setup completed successfully.  {NC}")
 
 def repair_cache():
@@ -192,6 +201,10 @@ def release_run():
         print(f"\n{RED}✗ APK built but install failed!{NC}")
 
 def install_apk():
+    """
+    Installs the built APK on a connected Android device using adb.
+    Tries to install arm64-v8a APK first if available.
+    """
     apk_files = glob.glob("build/app/outputs/flutter-apk/*.apk")
     if not apk_files:
         print(f"{RED}No APK found to install!{NC}")
@@ -208,11 +221,9 @@ def install_apk():
 def update_pods():
     """Update iOS pods"""
     print(f"{YELLOW}Updating iOS pods...{NC}\n")
-    
     # Navigate to iOS directory
     current_dir = os.getcwd()
     os.chdir("ios")
-    
     # Delete Podfile.lock
     try:
         os.remove("Podfile.lock")
@@ -220,27 +231,21 @@ def update_pods():
         run_flutter_command(["sleep", "0.1"], "Removing Podfile.lock                                 ")
     except FileNotFoundError:
         pass
-    
     # Update pod repo
     run_flutter_command(["pod", "repo", "update"], "Updating pod repository                               ")
-    
     # Install pods
     run_flutter_command(["pod", "install"], "Installing pods                                       ")
-    
     # Return to root directory
     os.chdir(current_dir)
-    
     print(f"\n{GREEN}✓ iOS pods updated successfully!{NC}")
 
 def create_page(page_name):
     """Create page structure"""
     print(f"{YELLOW}Creating page...{NC}\n")
-    
     if not page_name:
         print(f"{RED}Error: Page name is required.{NC}")
         print(f"Usage: {sys.argv[0]} page <page_name>")
         sys.exit(1)
-    
     # Run the create_page with the page name
     try:
         subprocess.run(["python3", "create_page.py", "page", page_name], check=True)
@@ -257,6 +262,7 @@ def show_usage():
     print(f"{YELLOW}Usage: {sys.argv[0]} [command]{NC}")
     print("\nAvailable commands:")
     print("  apk          Build release APK (Full Process)")
+    print("  apk-split    Build APK with --split-per-abi")
     print("  aab          Build release AAB")
     print("  lang         Generate localization files")
     print("  db           Run build_runner")
@@ -273,14 +279,13 @@ def main():
     # Create required directories if they don't exist
     os.makedirs("build/app/outputs/flutter-apk", exist_ok=True)
     os.makedirs("build/app/outputs/bundle/release", exist_ok=True)
-    
     if len(sys.argv) < 2:
         show_usage()
-    
     command = sys.argv[1].lower()
-    
     if command == "apk":
         build_apk()
+    elif command == "apk-split":
+        build_apk_split_per_abi()
     elif command == "aab":
         build_aab()
     elif command == "lang":
@@ -311,6 +316,5 @@ if __name__ == "__main__":
     def signal_handler(sig, frame):
         print("\nProcess interrupted. Exiting...")
         sys.exit(0)
-    
     signal.signal(signal.SIGINT, signal_handler)
     main()
