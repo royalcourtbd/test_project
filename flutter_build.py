@@ -91,6 +91,7 @@ def open_directory(directory_path):
 
 def build_apk():
     """Build APK (Full Process)"""
+    start_time = time.time()
     print(f"{YELLOW}Building APK (Full Process)...{NC}\n")
 
     # Clean the project
@@ -113,6 +114,15 @@ def build_apk():
     
     # Open the directory containing the APK
     open_directory("build/app/outputs/flutter-apk/")
+
+    end_time = time.time()
+
+    total_seconds = end_time - start_time
+    minutes, seconds = divmod(total_seconds, 60)
+
+    print(f"\n{BLUE}======================================================{NC}")
+    print(f"{BLUE}Total time taken: {int(minutes)} minute(s) and {seconds:.2f} seconds.{NC}")
+    print(f"{BLUE}======================================================{NC}")
 
 def build_apk_split_per_abi():
     """Build APK with --split-per-abi"""
