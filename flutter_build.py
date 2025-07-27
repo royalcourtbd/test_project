@@ -13,10 +13,10 @@ RED = '\033[0;31m'
 GREEN = '\033[0;32m'
 YELLOW = '\033[1;33m'
 BLUE = '\033[0;34m'
-NC = '\033[0m'  # No Color
-MAGENTA = '\033[0;35m'  # Added for spinner
-CHECKMARK = '\033[32m✓\033[0m'  # Added for success checkmark
-CROSS = '\033[31m𐄂\033[0m'  # Added for failure cross
+NC = '\033[0m'
+MAGENTA = '\033[0;35m'  
+CHECKMARK = '\033[32m✓\033[0m' 
+CROSS = '\033[31m𐄂\033[0m'
 
 def timer_decorator(func):
     """
