@@ -67,7 +67,6 @@ class ServiceLocator {
     await HomeDi.setup(_serviceLocator);
 
     //Feature DI setup
-    await OnboardingDi.setup(_serviceLocator);
     await AppManagementDi.setup(_serviceLocator);
 
     //Feature DI setup
